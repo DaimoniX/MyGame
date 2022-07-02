@@ -1,6 +1,5 @@
 ﻿using System;
 using Player;
-using UnityEngine;
 
 namespace Abilities.Player
 {
@@ -17,7 +16,7 @@ namespace Abilities.Player
 
         protected override void OnActivation()
         {
-            Player2D.Rigidbody.velocity = Player2D.Input * _dashSpeed;
+            Player2D.Rigidbody.velocity = Player2D.Input * (Player2D.Movement.Speed * _dashSpeed);
         }
     }
 }
