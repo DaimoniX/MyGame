@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace HealthSystem
 {
     [Serializable]
-    public class Health : IDamageable, IHealable, IHealth
+    public class Health : IHealth
     {
         public int MaxHealth { get; private set; }
         public int CurrentHealth { get; private set; }

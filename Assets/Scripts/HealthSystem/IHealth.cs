@@ -1,8 +1,6 @@
-﻿using UnityEngine.Analytics;
-
-namespace HealthSystem
+﻿namespace HealthSystem
 {
-    public interface IHealth
+    public interface IHealth : IDamageable, IHealable
     {
         public Health GetHealth();
     }

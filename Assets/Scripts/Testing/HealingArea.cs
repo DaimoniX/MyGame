@@ -4,13 +4,13 @@ using UnityEngine;
 namespace Testing
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class DamageArea : MonoBehaviour
+    public class HealingArea : MonoBehaviour
     {
-        [SerializeField] private int damage = 1;
+        [SerializeField] private int heal = 1;
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if(col.TryGetComponent(out IDamageable h))
-                h.ApplyDamage(damage);
+            if(col.TryGetComponent(out IHealable h))
+                h.ApplyHeal(heal);
         }
     }
 }
