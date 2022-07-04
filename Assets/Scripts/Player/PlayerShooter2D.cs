@@ -1,6 +1,7 @@
 ﻿using System;
 using Projectiles;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 namespace Player
@@ -11,12 +12,13 @@ namespace Player
         private float _timer = 0;
         public float ReloadPercent => 1 - _timer;
         [SerializeField] private Projectile2D projectile2D;
-        [SerializeField] private Transform muzzle;
+        [FormerlySerializedAs("muzzle")] [SerializeField] private Transform hull;
+        [SerializeField] private Transform[] muzzles;
         [SerializeField] private float fireRate = 1;
 
         public void SetDirection(Vector2 direction)
         {
-            muzzle.right = direction;
+            hull.right = direction;
         }
 
         public void Update(float deltaTime)
@@ -27,7 +29,10 @@ namespace Player
         public void Shoot()
         {
             if (_timer > 0) return;
-            Object.Instantiate(projectile2D, muzzle.position, muzzle.rotation).Launch(muzzle.right);
+            foreach (var muzzle in muzzles)
+            {
+                Object.Instantiate(projectile2D, muzzle.position, muzzle.rotation).Launch(muzzle.right);
+            }
             _timer = 1;
         }
     }

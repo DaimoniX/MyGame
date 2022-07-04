@@ -8,6 +8,7 @@ namespace Player
     public class Player2D : MonoBehaviour, IHealth
     {
         private PlayerAbility _ability;
+        public PlayerAbility Ability => _ability;
         [SerializeField] private PlayerMovement2D movement = new();
         public PlayerMovement2D Movement => movement;
         [SerializeField] private PlayerShooter2D shooter = new();
@@ -15,7 +16,9 @@ namespace Player
         public Rigidbody2D Rigidbody { private set; get; }
         private Vector2 _input;
         public Vector2 Input => _input;
-        [SerializeField] private Health health = new(20);
+        [Header("Health")]
+        [SerializeField] private int maxHealth = 10;
+        [SerializeField] private Health health = new();
         private Camera _camera;
         private Vector2 _aimingDirection;
 
@@ -27,6 +30,7 @@ namespace Player
             movement.SetRigidbody(Rigidbody);
             _ability = new Dash(this, 6, 1);
             _camera = Camera.main;
+            health.SetMaxHealth(maxHealth);
         }
 
         private void Update()

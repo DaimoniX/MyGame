@@ -8,6 +8,11 @@ namespace Utils
         [SerializeField] private float speed = 2;
         [SerializeField] private Transform target;
 
+        public void SetTarget(Transform target)
+        {
+            this.target = target;
+        }
+
         private void FixedUpdate()
         {
             if(!target) return;

@@ -13,6 +13,11 @@ namespace HealthSystem
         public UnityEvent<int> onHeal  = new();
         public UnityEvent onDeath = new();
 
+        public Health() : this(10)
+        {
+            
+        }
+
         public Health(int maxHealth)
         {
             if (maxHealth <= 0)

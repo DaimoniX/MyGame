@@ -1,16 +1,17 @@
 ﻿using HealthSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Utils
 {
     public class HealthComponent : MonoBehaviour, IHealth, IDamageable, IHealable
     {
-        [SerializeField] private Health health = new(10);
-        [SerializeField] private int initialHealth = 10;
+        [SerializeField] private Health health = new();
+        [FormerlySerializedAs("initialHealth")] [SerializeField] private int maxHealth = 10;
 
         private void Awake()
         {
-            health.SetMaxHealth(initialHealth);
+            health.SetMaxHealth(maxHealth);
         }
 
         public void ApplyDamage(int value)

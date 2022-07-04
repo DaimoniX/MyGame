@@ -1,7 +1,7 @@
 ﻿using Projectiles;
 using UnityEngine;
 
-namespace Testing
+namespace Enemies
 {
     public class Sentry : MonoBehaviour
     {
@@ -11,6 +11,7 @@ namespace Testing
         [SerializeField] private float aimingSpeed = 1;
         [SerializeField] private float projectileSpeedMultiplier = 1;
         [SerializeField] private float radius = 3;
+        [SerializeField] private float maxAimingDistance = 0.15f;
         [SerializeField] private BasicProjectile projectile;
         private Transform _target;
         private Vector3 _dir;
@@ -18,7 +19,7 @@ namespace Testing
         
         private void Start()
         {
-            if(!gameObject.TryGetComponent(out _sensor))
+            if(!transform.TryGetComponent(out _sensor))
                 _sensor = gameObject.AddComponent<CircleCollider2D>();
             _sensor.radius = radius;
             _sensor.isTrigger = true;
@@ -30,7 +31,7 @@ namespace Testing
             {
                 _dir = _target.position - transform.position;
                 _dir.Normalize();
-                if (_timer < 0 && Vector3.Distance(transform.right, _dir) < 0.1f)
+                if (_timer < 0 && Vector3.Distance(transform.right, _dir) < maxAimingDistance)
                 {
                     Instantiate(projectile, muzzle.position, muzzle.rotation).SetSpeedMultiplier(projectileSpeedMultiplier)
                         .Launch(_target);
