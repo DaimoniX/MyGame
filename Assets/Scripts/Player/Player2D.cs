@@ -56,6 +56,16 @@ namespace Player
             _ability = ability;
         }
 
+        public void SpawnParticles(ParticleSystem particleSystem)
+        {
+            Instantiate(particleSystem, transform.position, transform.rotation);
+        }
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
+        }
+
         #region IHealth
 
         public Health GetHealth()

@@ -28,6 +28,11 @@ namespace Utils
             return health;
         }
 
+        public void SpawnObject(GameObject gameObject)
+        {
+            Instantiate(gameObject, transform.position, transform.rotation);
+        }
+
         public void Destroy()
         {
             Destroy(gameObject);

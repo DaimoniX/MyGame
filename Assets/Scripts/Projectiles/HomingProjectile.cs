@@ -23,6 +23,12 @@ namespace Projectiles
 
         private void Update()
         {
+            if (!_target)
+            {
+                Destroy();
+                enabled = false;
+                return;
+            }
             _dir = _target.position - transform.position;
             _dir.Normalize();
             transform.right = Vector3.Lerp(transform.right, _dir, Time.deltaTime * rotationSpeed * SpeedMultiplier);

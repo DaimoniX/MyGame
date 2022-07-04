@@ -289,11 +289,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd4e46dd1d7e984e81d6bd8dc1c145c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
   rigidbody: {fileID: 6075097661232567726}
   speed: 8
-  hitParticles: {fileID: 2836537716260554613, guid: 10e1148babc9acf4586fb0303fb8b52a, type: 3}
-  rotationSpeed: 2
+  hitParticles: {fileID: 2836537716260554613, guid: 884d645d53faeed4bb476d624e4f7f8a, type: 3}
+  rotationSpeed: 3
 --- !u!1 &6075097662090534980
 GameObject:
   m_ObjectHideFlags: 0
