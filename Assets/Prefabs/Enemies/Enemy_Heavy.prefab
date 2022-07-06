@@ -45,11 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948ff81e0008460293eb933a17d927e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzle: {fileID: 4559537197066892144}
+  muzzles:
+  - {fileID: 4559537197066892144}
   shootingInterval: 0.5
   aimingSpeed: 2
   projectileSpeedMultiplier: 1
   radius: 12
+  shootingArc: 360
   projectile: {fileID: 3344833705505055112, guid: efe79b64c86e1fd4788c6c5cedbae27a, type: 3}
 --- !u!1 &3205260216418656689
 GameObject:
@@ -172,7 +174,7 @@ MonoBehaviour:
   maxHealth: 40
   speed: 3
   rotationSpeed: 0.2
-  scoreValue: 1
+  scoreValue: 10
   destroyOnOutOfBounds: 1
   hull: {fileID: 3205260216507060006}
 --- !u!1 &3205260216507060007
@@ -734,11 +736,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948ff81e0008460293eb933a17d927e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzle: {fileID: 3233997832553622662}
+  muzzles:
+  - {fileID: 3233997832553622662}
   shootingInterval: 2
   aimingSpeed: 0.6
   projectileSpeedMultiplier: 1
   radius: 18
+  shootingArc: 24
   projectile: {fileID: 3308735858379066825, guid: 05ede477d0a69b84baaa9a404de1aa14, type: 3}
 --- !u!1 &7268970469131825020
 GameObject:

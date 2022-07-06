@@ -1,11 +1,11 @@
 ﻿using Abilities.Player;
-using HealthSystem;
 using UnityEngine;
+using Utils;
 
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player2D : MonoBehaviour, IHealth
+    public class Player2D : HealthComponent
     {
         private PlayerAbility _ability;
         public PlayerAbility Ability => _ability;
@@ -16,9 +16,6 @@ namespace Player
         public Rigidbody2D Rigidbody { private set; get; }
         private Vector2 _input;
         public Vector2 Input => _input;
-        [Header("Health")]
-        [SerializeField] private int maxHealth = 10;
-        [SerializeField] private Health health = new();
         private Camera _camera;
         private Vector2 _aimingDirection;
 
@@ -30,7 +27,6 @@ namespace Player
             movement.SetRigidbody(Rigidbody);
             _ability = new Dash(this, 6, 1);
             _camera = Camera.main;
-            health.SetMaxHealth(maxHealth);
         }
 
         private void Update()
@@ -64,30 +60,7 @@ namespace Player
         {
             Instantiate(particleSystem, transform.position, transform.rotation);
         }
-
-        public void Destroy()
-        {
-            Destroy(gameObject);
-        }
-
-        #region IHealth
-
-        public Health GetHealth()
-        {
-            return health;
-        }
-
-        public void ApplyDamage(int value)
-        {
-            health.ApplyDamage(value);
-        }
-
-        public void ApplyHeal(int value)
-        {
-            health.ApplyHeal(value);
-        }
-
-        #endregion
+        
 
         #region DEBUG
 

@@ -1,13 +1,14 @@
 ﻿using HealthSystem;
+using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Utils
 {
-    public class HealthComponent : MonoBehaviour, IHealth, IDamageable, IHealable
+    public class HealthComponent : MonoBehaviour, IHealth
     {
-        [SerializeField] private Health health = new();
-        [FormerlySerializedAs("initialHealth")] [SerializeField] private int maxHealth = 10;
+        [SerializeField] protected Health health = new();
+        [SerializeField] private int maxHealth = 10;
 
         private void Awake()
         {
@@ -27,6 +28,11 @@ namespace Utils
         public Health GetHealth()
         {
             return health;
+        }
+
+        public void PlaySound(AudioClip sound)
+        {
+            AudioSource.PlayClipAtPoint(sound, transform.position, PlayerData.AudioVolume);
         }
 
         public void SpawnObject(GameObject gameObject)

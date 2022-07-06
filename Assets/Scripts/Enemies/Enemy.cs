@@ -32,11 +32,15 @@ namespace Enemies
             return (_target.position - transform.position).normalized;
         }
 
+        private float DistanceMultiplier()
+        {
+            return Math.Max(Vector3.Distance(_target.position, transform.position) / 8f, 1);
+        }
+
         private void Update()
         {
             if (!_target) return;
-            Vector2 direction = Vector3.RotateTowards(_rb2d.velocity.normalized, DirectionToTarget(), Time.deltaTime * rotationSpeed,
-                Time.deltaTime * rotationSpeed);
+            Vector2 direction = Vector3.Lerp(_rb2d.velocity.normalized, DirectionToTarget(), Time.deltaTime * rotationSpeed * DistanceMultiplier());
             _rb2d.velocity = direction * speed;
             if (hull)
                 hull.right = _rb2d.velocity.normalized;

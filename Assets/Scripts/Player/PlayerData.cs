@@ -8,16 +8,21 @@ namespace Player
         private const string ShipKey = "ship";
         private const string TotalKey = "totalscore";
         private const string HighScoreKey = "highscore";
+        private const string VolumeKey = "volume";
         public static int SelectedShip => Data[0];
         public static int TotalScore => Data[1];
         public static int HighScore => Data[2];
-        private const int TL = 3;
-        private static readonly string[] Keys = new string[TL] { ShipKey, TotalKey, HighScoreKey };
-        private static readonly int[] Data = new int[TL] { 0, 0, 0 };
+        public static float AudioVolume => Data[3] / 100f;
+        private const int TL = 4;
+        private static readonly string[] Keys = new string[TL] { ShipKey, TotalKey, HighScoreKey, VolumeKey };
+        private static readonly int[] DefaultValues = new int[TL] { 0, 0, 0, 100 };
+        private static readonly int[] Data = DefaultValues;
         private static bool _loaded = false;
 
         public static void Load()
         {
+            if(_loaded)
+                return;
             Check();
             Update();
             PlayerPrefs.Save();
@@ -29,7 +34,7 @@ namespace Player
             for (int i = 0; i < TL; i++)
             {
                 if (!PlayerPrefs.HasKey(Keys[i]))
-                    PlayerPrefs.SetInt(Keys[i], 0);
+                    PlayerPrefs.SetInt(Keys[i], DefaultValues[i]);
             }
         }
 
@@ -44,16 +49,15 @@ namespace Player
         public static void Clear()
         {
             PlayerPrefs.DeleteAll();
-            if (!_loaded) return;
-            Check();
-            Update();
+            _loaded = false;
+            Load();
         }
 
-        public static void IncreaseScore()
+        public static void IncreaseScore(int value = 1)
         {
             if (!_loaded)
-                throw new InvalidOperationException("Cannot modify value before initialization");
-            PlayerPrefs.SetInt(TotalKey, TotalScore + 1);
+                Load();
+            PlayerPrefs.SetInt(TotalKey, TotalScore + value);
             PlayerPrefs.Save();
             Update();
         }
@@ -61,7 +65,7 @@ namespace Player
         public static void SelectShip(int shipID)
         {
             if (!_loaded)
-                throw new InvalidOperationException("Cannot modify value before initialization");
+                Load();
             PlayerPrefs.SetInt(ShipKey, shipID);
             PlayerPrefs.Save();
             Update();
@@ -70,13 +74,22 @@ namespace Player
         public static void SetHighScore(int score)
         {
             if (!_loaded)
-                throw new InvalidOperationException("Cannot modify value before initialization");
+                Load();
             if (score > HighScore)
             {
                 PlayerPrefs.SetInt(HighScoreKey, score);
                 PlayerPrefs.Save();
             }
 
+            Update();
+        }
+
+        public static void SetAudionVolume(float value)
+        {
+            if (!_loaded)
+                Load();
+            PlayerPrefs.SetInt(VolumeKey, Math.Clamp((int)(value * 100), 0, 100));
+            PlayerPrefs.Save();
             Update();
         }
     }

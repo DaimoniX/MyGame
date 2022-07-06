@@ -20,6 +20,10 @@ namespace Projectiles
             rigidbody.velocity = Vector2.right * (speed * SpeedMultiplier);
         }
 
+        protected override void TimeoutDestroy()
+        {
+            Destroy();
+        }
 
         private void Update()
         {
@@ -29,6 +33,7 @@ namespace Projectiles
                 enabled = false;
                 return;
             }
+
             _dir = _target.position - transform.position;
             _dir.Normalize();
             transform.right = Vector3.Lerp(transform.right, _dir, Time.deltaTime * rotationSpeed * SpeedMultiplier);
