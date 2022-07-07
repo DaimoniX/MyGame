@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Projectiles;
 using UnityEngine;
@@ -94,12 +93,14 @@ namespace Enemies
             UnityEditor.Handles.Label(position,
                 $"{_timer}");
             if(Application.isPlaying) return;
-            Vector3 arcStart = new Vector3(position.x + radius * Mathf.Cos(shootingArc / 2f * Mathf.Deg2Rad),
-                -(position.y + radius * Mathf.Sin(shootingArc / 2f * Mathf.Deg2Rad)), position.z);
-            Gizmos.DrawRay(position, arcStart);
-            UnityEditor.Handles.DrawWireArc(position, transform.forward, arcStart, shootingArc, radius);
-            arcStart.y *= -1;
-            Gizmos.DrawRay(position, arcStart);
+            Vector3 arcStart = new Vector3(position.x + radius * Mathf.Cos((shootingArc / 2f + transform.rotation.eulerAngles.z) * Mathf.Deg2Rad),
+                (position.y + radius * Mathf.Sin((shootingArc / 2f + transform.rotation.eulerAngles.z) * Mathf.Deg2Rad)), 0);
+            Gizmos.DrawLine(position, arcStart);
+            arcStart = new Vector3(
+                position.x + radius * Mathf.Cos((-shootingArc / 2f + transform.rotation.eulerAngles.z) * Mathf.Deg2Rad),
+                    position.y + radius *
+                    Mathf.Sin((-shootingArc / 2f + transform.rotation.eulerAngles.z) * Mathf.Deg2Rad), 0);
+            Gizmos.DrawLine(position, arcStart);
         }
 #endif
     }

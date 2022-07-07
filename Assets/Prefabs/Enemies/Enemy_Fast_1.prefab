@@ -130,10 +130,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzles:
   - {fileID: 1842074863059952214}
-  shootingInterval: 0.75
+  shootingInterval: 0.7
   aimingSpeed: 0
-  projectileSpeedMultiplier: 1
-  radius: 18
+  projectileSpeedMultiplier: 1.8
+  radius: 19
   shootingArc: 15
   projectile: {fileID: 3344833705505055112, guid: efe79b64c86e1fd4788c6c5cedbae27a, type: 3}
 --- !u!1 &7539605784944548677
@@ -406,8 +406,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  maxHealth: 6
-  speed: 10
+  maxHealth: 8
+  speed: 11
   rotationSpeed: 4
   scoreValue: 5
   destroyOnOutOfBounds: 1

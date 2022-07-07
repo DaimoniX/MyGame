@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3308735858379066824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7956703883815407556}
@@ -137,10 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8eb6afcf4741c3ae0e1fe06376aad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 4
+  damage: 3
   rigidbody: {fileID: 3308735858379066826}
-  speed: 8
+  speed: 7
   hitParticles: {fileID: 3000745994298477181, guid: ed8e8aa52b6900548866a96b62befa99, type: 3}
+  shootSound: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
+  hitSound: {fileID: 0}
+  spread: 0
 --- !u!1 &6807937880131722071
 GameObject:
   m_ObjectHideFlags: 0

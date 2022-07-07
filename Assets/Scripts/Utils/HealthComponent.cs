@@ -32,7 +32,7 @@ namespace Utils
 
         public void PlaySound(AudioClip sound)
         {
-            AudioSource.PlayClipAtPoint(sound, transform.position, PlayerData.AudioVolume);
+            AudioSource.PlayClipAtPoint(sound, transform.position, PlayerData.FXVolume);
         }
 
         public void SpawnObject(GameObject gameObject)

@@ -8,14 +8,16 @@ namespace Player
         private const string ShipKey = "ship";
         private const string TotalKey = "totalscore";
         private const string HighScoreKey = "highscore";
-        private const string VolumeKey = "volume";
+        private const string FXVolumeKey = "fxvolume";
+        private const string MusicVolumeKey = "musicvolume";
         public static int SelectedShip => Data[0];
         public static int TotalScore => Data[1];
         public static int HighScore => Data[2];
-        public static float AudioVolume => Data[3] / 100f;
-        private const int TL = 4;
-        private static readonly string[] Keys = new string[TL] { ShipKey, TotalKey, HighScoreKey, VolumeKey };
-        private static readonly int[] DefaultValues = new int[TL] { 0, 0, 0, 100 };
+        public static float FXVolume => Data[3] / 100f;
+        public static float MusicVolume => Data[4] / 100f;
+        private const int TL = 5;
+        private static readonly string[] Keys = new string[TL] { ShipKey, TotalKey, HighScoreKey, FXVolumeKey, MusicVolumeKey };
+        private static readonly int[] DefaultValues = new int[TL] { 0, 0, 0, 100, 100 };
         private static readonly int[] Data = DefaultValues;
         private static bool _loaded = false;
 
@@ -66,7 +68,7 @@ namespace Player
         {
             if (!_loaded)
                 Load();
-            PlayerPrefs.SetInt(ShipKey, shipID);
+            PlayerPrefs.SetInt(ShipKey, Math.Max(shipID, 0));
             PlayerPrefs.Save();
             Update();
         }
@@ -84,11 +86,20 @@ namespace Player
             Update();
         }
 
-        public static void SetAudionVolume(float value)
+        public static void SetMusicVolume(float value)
         {
             if (!_loaded)
                 Load();
-            PlayerPrefs.SetInt(VolumeKey, Math.Clamp((int)(value * 100), 0, 100));
+            PlayerPrefs.SetInt(MusicVolumeKey, Math.Clamp((int)(value * 100), 0, 100));
+            PlayerPrefs.Save();
+            Update();
+        }
+        
+        public static void SetFXVolume(float value)
+        {
+            if (!_loaded)
+                Load();
+            PlayerPrefs.SetInt(FXVolumeKey, Math.Clamp((int)(value * 100), 0, 100));
             PlayerPrefs.Save();
             Update();
         }

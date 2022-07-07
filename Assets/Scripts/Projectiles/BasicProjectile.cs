@@ -23,7 +23,8 @@ namespace Projectiles
             if (hitParticles)
                 Instantiate(hitParticles, transform.position, transform.rotation);
             if (hitSound)
-                AudioSource.PlayClipAtPoint(hitSound, transform.position, PlayerData.AudioVolume);
+                AudioSource.PlayClipAtPoint(hitSound, transform.position, PlayerData.FXVolume);
+
             base.Destroy();
         }
 
@@ -35,7 +36,7 @@ namespace Projectiles
         private void Start()
         {
             if (shootSound)
-                AudioSource.PlayClipAtPoint(shootSound, transform.position);
+                AudioSource.PlayClipAtPoint(shootSound, transform.position, PlayerData.FXVolume);
             Invoke(nameof(TimeoutDestroy), MaxLifetime);
         }
 

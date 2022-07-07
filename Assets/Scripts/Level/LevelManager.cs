@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Enemies;
 using Player;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Utils;
 using Random = UnityEngine.Random;
 
@@ -22,12 +24,13 @@ namespace Level
         public UnityEvent<int> onNextWave = new();
         
         private int _enemiesLeft = 0;
-        private const int MaxEnemiesAlive = 6;
+        private int MaxEnemiesAlive => 6 + _wave;
         private int _wave = 0;
         private int _maxEnemyLevel = 0;
 
         private float _timer = 0;
-        private const float SpawnDelay = 4;
+        private const float SpawnDelay = 3;
+        private AudioSource _musicPlayer;
 
         public string Status => $"Wave: {_wave} Enemies left: {_enemiesLeft}";
 
@@ -36,9 +39,11 @@ namespace Level
             Score = 0;
             _aliveEnemies = new HashSet<Enemy>();
             _ui = FindObjectOfType<PlayerUI>();
+            _musicPlayer = GetComponent<AudioSource>();
+            _musicPlayer.volume = PlayerData.MusicVolume;
             FollowCamera followCamera = FindObjectOfType<FollowCamera>();
             _player = CreatePlayer();
-            _player.GetHealth().onDeath.AddListener(UpdateData);
+            _player.GetHealth().onDeath.AddListener(SaveData);
             _ui.Setup(this, _player);
             followCamera.SetTarget(_player.transform);
             _timer = 0;
@@ -106,7 +111,6 @@ namespace Level
         {
             Score += value;
             _enemiesLeft--;
-            PlayerData.IncreaseScore();
         }
 
         private float DistanceToPlayer(Vector2 point)
@@ -114,11 +118,16 @@ namespace Level
             return Vector2.Distance(_player.transform.position, point);
         }
 
-        private void UpdateData()
+        private void SaveData()
         {
             enabled = false;
-            // SceneManager.LoadScene(0);
+            PlayerData.IncreaseScore(Score);
             PlayerData.SetHighScore(Score);
+        }
+
+        public void LoadMenu()
+        {
+            SceneManager.LoadScene(0);
         }
 
 #if UNITY_EDITOR
